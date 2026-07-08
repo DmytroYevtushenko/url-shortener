@@ -1,0 +1,51 @@
+# Build outputs
+bin/
+obj/
+out/
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# Publish
+publish/
+**/publish/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sdf
+
+# Visual Studio
+.vs/
+*.rsuser
+
+# Rider
+.idea/
+
+# JetBrains AI
+.junie/
+
+# Secrets / env
+appsettings.*.json
+!appsettings.Development.json
+secrets.json
+*.pfx
+*.p12
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test results
+TestResults/
+*.trx
+coverage/
+*.coveragexml
