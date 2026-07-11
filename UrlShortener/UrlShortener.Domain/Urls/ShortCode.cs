@@ -17,9 +17,10 @@ public sealed record ShortCode
         if (value.Length != Length)
             throw new ArgumentException($"Short code must be exactly {Length} characters.", nameof(value));
 
-        foreach (var c in value.Where(c => !Alphabet.Contains(c)))
+        foreach (var c in value)
         {
-            throw new ArgumentException($"Short code contains invalid character '{c}'.", nameof(value));
+            if (!Alphabet.Contains(c))
+                throw new ArgumentException($"Short code contains invalid character '{c}'.", nameof(value));
         }
 
         return new ShortCode(value);

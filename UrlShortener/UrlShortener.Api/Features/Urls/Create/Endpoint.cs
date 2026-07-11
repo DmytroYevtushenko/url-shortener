@@ -13,6 +13,8 @@ public sealed class Endpoint(Handler handler) : Endpoint<Request, Response>
     public override async Task HandleAsync(Request request, CancellationToken cancellationToken)
     {
         var response = await handler.HandleAsync(request, cancellationToken);
-        await Send.OkAsync(response, cancellationToken);
+
+        HttpContext.Response.Headers.Location = response.ShortUrl;
+        await Send.ResponseAsync(response, StatusCodes.Status201Created, cancellationToken);
     }
 }
