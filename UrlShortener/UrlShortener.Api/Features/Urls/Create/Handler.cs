@@ -3,13 +3,16 @@ using UrlShortener.Domain.Urls;
 
 namespace UrlShortener.Api.Features.Urls.Create;
 
-public sealed class Handler(IShortCodeGenerator shortCodeGenerator, IUrlRepository urlRepository)
+public sealed class Handler(
+    IShortCodeGenerator shortCodeGenerator,
+    IUrlRepository urlRepository,
+    TimeProvider timeProvider)
 {
     public async Task<Result<Response>> HandleAsync(Request request, CancellationToken cancellationToken)
     {
         var shortCode = shortCodeGenerator.Generate();
 
-        var url = Url.Create(shortCode, request.LongUrl, DateTimeOffset.UtcNow);
+        var url = Url.Create(shortCode, request.LongUrl, timeProvider.GetUtcNow());
 
         var added = await urlRepository.AddAsync(url, cancellationToken);
         if (!added)

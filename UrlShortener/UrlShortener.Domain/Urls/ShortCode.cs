@@ -2,7 +2,7 @@ namespace UrlShortener.Domain.Urls;
 
 public sealed record ShortCode
 {
-    public const int Length = 7;
+    public const int MaxLength = 7;
     public const string Alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     public string Value { get; }
@@ -14,8 +14,8 @@ public sealed record ShortCode
         if (string.IsNullOrWhiteSpace(value))
             throw new ArgumentException("Short code cannot be empty.", nameof(value));
 
-        if (value.Length != Length)
-            throw new ArgumentException($"Short code must be exactly {Length} characters.", nameof(value));
+        if (value.Length > MaxLength)
+            throw new ArgumentException($"Short code must be at most {MaxLength} characters.", nameof(value));
 
         foreach (var c in value)
         {
